@@ -15,7 +15,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final emailController = TextEditingController();
   final pwController = TextEditingController();
   bool showClearButton = false;
-  bool hidePassword = false;
+  bool showPassword = false;
 
   @override
   Widget build(BuildContext context) {
@@ -78,12 +78,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 LoginTextField(
                     controller: pwController,
                     placeHolder: "비밀번호",
-                    isSecureText: hidePassword,
-                    suffixIcon: hidePassword
+                    isSecureText: !showPassword,
+                    suffixIcon: showPassword
                         ? IconButton(
                             onPressed: () {
                               setState(() {
-                                hidePassword = false;
+                                showPassword = false;
                               });
                             },
                             icon: Image.asset(
@@ -92,7 +92,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         : IconButton(
                             onPressed: () {
                               setState(() {
-                                hidePassword = true;
+                                showPassword = true;
                               });
                             },
                             icon: Image.asset(
