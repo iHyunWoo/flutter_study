@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:instagram/screen/home_main_screen.dart';
-import 'package:instagram/screen/profile_main_screen.dart';
+import 'package:instagram/screen/profile/profile_main_screen.dart';
 
 import '../util/constants.dart';
 

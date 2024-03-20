@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:instagram/screen/bottom_navigation_screen.dart';
 import 'package:instagram/screen/home_main_screen.dart';
 import 'package:instagram/screen/login_screen.dart';
+import 'package:instagram/screen/profile/profile_edit_screen.dart';
+import 'package:instagram/screen/profile/profile_main_screen.dart';
 import 'package:instagram/screen/register/register_complete_screen.dart';
 import 'package:instagram/screen/register/register_email_screen.dart';
 import 'package:instagram/screen/register/register_name_screen.dart';
@@ -17,7 +19,7 @@ void main() {
           buttonColor: Colors.black,
         ),
       ),
-      initialRoute: '/login',
+      initialRoute: '/main',
       routes: {
         '/login': (context) => LoginScreen(),
         '/register': (context) => RegisterEmailScreen(),
@@ -26,6 +28,8 @@ void main() {
         '/register/username': (context) => RegisterUsernameScreen(),
         '/register/complete': (context) => RegisterCompleteScreen(),
         '/main': (context) => BottomNavigationScreen(),
+        '/profile': (context) => ProfileMainScreen(),
+        '/profile/edit': (context) => ProfileEditScreen(),
       },
     ),
   );
