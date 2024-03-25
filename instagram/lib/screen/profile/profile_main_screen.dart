@@ -96,15 +96,18 @@ class _ProfileMainScreenState extends State<ProfileMainScreen> {
                   SizedBox(
                     width: 35,
                     height: 35,
-                    child: IconButton(
-                      onPressed: () {},
-                      icon: Image.asset(
-                        '${Constants.imageBasePath}/recommendFriend.png',
-                        width: 35,
-                        height: 35,
-                      ),
-                      padding: EdgeInsets.zero,
+                    child: Container(
                       color: Colors.grey[100]!,
+                      child: IconButton(
+                        onPressed: () {},
+                        icon: Image.asset(
+                          '${Constants.imageBasePath}/recommendFriend.png',
+                          width: 35,
+                          height: 35,
+                        ),
+                        padding: EdgeInsets.zero,
+                        color: Colors.grey[100]!,
+                      ),
                     ),
                   ),
                 ],
