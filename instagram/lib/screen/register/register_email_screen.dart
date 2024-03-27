@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:instagram/util/constants.dart';
 import 'package:instagram/widget/login_textfield.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RegisterEmailScreen extends StatelessWidget {
   const RegisterEmailScreen({super.key});
@@ -66,7 +67,9 @@ class RegisterEmailScreen extends StatelessWidget {
                 children: [
                   Expanded(
                     child: OutlinedButton(
-                      onPressed: () {
+                      onPressed: () async {
+                        final SharedPreferences prefs = await SharedPreferences.getInstance();
+                        await prefs.setString("email", emailController.text);
                         Navigator.pushNamed(context, '/register/name');
                       },
                       style: OutlinedButton.styleFrom(

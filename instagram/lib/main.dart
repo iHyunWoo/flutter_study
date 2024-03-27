@@ -16,6 +16,7 @@ Future<void> main() async{
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(
+    name: "instagram_clone_flutter",
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(
@@ -26,7 +27,7 @@ Future<void> main() async{
           buttonColor: Colors.black,
         ),
       ),
-      initialRoute: '/main',
+      initialRoute: '/login',
       routes: {
         '/login': (context) => LoginScreen(),
         '/register': (context) => RegisterEmailScreen(),

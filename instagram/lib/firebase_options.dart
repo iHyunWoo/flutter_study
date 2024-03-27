@@ -17,10 +17,7 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -28,10 +25,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -49,11 +43,23 @@ class DefaultFirebaseOptions {
     }
   }
 
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyCk6cITi66U-nBkE1GQhUGXEEwgtK8oJYY',
+    appId: '1:247908841526:web:31fb23b69b33a007b60097',
+    messagingSenderId: '247908841526',
+    projectId: 'instagram-clone-flutter-1f4d2',
+    authDomain: 'instagram-clone-flutter-1f4d2.firebaseapp.com',
+    databaseURL: 'https://instagram-clone-flutter-1f4d2-default-rtdb.firebaseio.com',
+    storageBucket: 'instagram-clone-flutter-1f4d2.appspot.com',
+    measurementId: 'G-M37KBXBSG7',
+  );
+
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyBnw4cvporeAVHNZG5fVtLuXXZ7si5Bzro',
     appId: '1:247908841526:android:5b9b119b1732c545b60097',
     messagingSenderId: '247908841526',
     projectId: 'instagram-clone-flutter-1f4d2',
+    databaseURL: 'https://instagram-clone-flutter-1f4d2-default-rtdb.firebaseio.com',
     storageBucket: 'instagram-clone-flutter-1f4d2.appspot.com',
   );
 
@@ -62,7 +68,18 @@ class DefaultFirebaseOptions {
     appId: '1:247908841526:ios:0e290ad4f0ad0d01b60097',
     messagingSenderId: '247908841526',
     projectId: 'instagram-clone-flutter-1f4d2',
+    databaseURL: 'https://instagram-clone-flutter-1f4d2-default-rtdb.firebaseio.com',
     storageBucket: 'instagram-clone-flutter-1f4d2.appspot.com',
     iosBundleId: 'com.example.instagram',
+  );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyB-TzD36BKsKiE_M9ARCG6w2zACIxECReE',
+    appId: '1:247908841526:ios:abd2121cebba9f08b60097',
+    messagingSenderId: '247908841526',
+    projectId: 'instagram-clone-flutter-1f4d2',
+    databaseURL: 'https://instagram-clone-flutter-1f4d2-default-rtdb.firebaseio.com',
+    storageBucket: 'instagram-clone-flutter-1f4d2.appspot.com',
+    iosBundleId: 'com.example.instagram.RunnerTests',
   );
 }

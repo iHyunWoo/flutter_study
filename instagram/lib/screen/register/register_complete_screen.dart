@@ -1,9 +1,40 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:instagram/model/UserModel.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../util/constants.dart';
 
-class RegisterCompleteScreen extends StatelessWidget {
-  const RegisterCompleteScreen({super.key});
+class RegisterCompleteScreen extends StatefulWidget {
+  RegisterCompleteScreen({super.key});
+
+  @override
+  State<RegisterCompleteScreen> createState() => _RegisterCompleteScreenState();
+}
+
+class _RegisterCompleteScreenState extends State<RegisterCompleteScreen> {
+  String email = '';
+  String name = '';
+  String userName = '';
+  String password = '';
+
+  @override
+  void initState() {
+    super.initState();
+    getUserInfoViaSharedPreferences();
+  }
+
+  Future<void> getUserInfoViaSharedPreferences() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    email = prefs.getString('email') ?? '';
+    name = prefs.getString('name') ?? '';
+    password = prefs.getString('password') ?? '';
+
+    setState(() {
+      userName = prefs.getString('userName') ?? '';
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,8 +48,8 @@ class RegisterCompleteScreen extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              const Text(
-                "ㅇㅇㅇ님으로\n가입하시겠어요?",
+              Text(
+                "${userName}님으로\n가입하시겠어요?",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 23,
@@ -28,9 +59,7 @@ class RegisterCompleteScreen extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
-              const Text(
-                  "나중에 언제든지 사용자 이름을 변경할 수 있습니다."
-              ),
+              const Text("나중에 언제든지 사용자 이름을 변경할 수 있습니다."),
               const Spacer(),
               _bottom(context),
             ],
@@ -65,8 +94,8 @@ class RegisterCompleteScreen extends StatelessWidget {
           children: [
             Expanded(
               child: OutlinedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/register/password');
+                onPressed: () async {
+                  await onTapRegister(context);
                 },
                 style: OutlinedButton.styleFrom(
                   backgroundColor: Colors.blue,
@@ -102,5 +131,42 @@ class RegisterCompleteScreen extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  Future<void> onTapRegister(BuildContext context) async {
+    FirebaseDatabase _database = FirebaseDatabase.instance;
+    FirebaseAuth _auth = FirebaseAuth.instance;
+
+    try {
+      await _auth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      await _database.ref().child('users').push().set(
+            UserModel(
+              email: email,
+              name: name,
+              userName: userName,
+              description: "",
+              link: "",
+            ).toJson(),
+          );
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("회원가입 성공"),
+        ),
+      );
+
+      Navigator.popUntil(context, ModalRoute.withName('/login'));
+    } catch (error) {
+      print("회원가입 실패: $error");
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("회원가입 실패"),
+        ),
+      );
+    }
   }
 }

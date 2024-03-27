@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../util/constants.dart';
 import '../../widget/login_textfield.dart';
@@ -83,7 +84,9 @@ class _RegisterPasswordScreenState extends State<RegisterPasswordScreen> {
                 children: [
                   Expanded(
                     child: OutlinedButton(
-                      onPressed: () {
+                      onPressed: () async {
+                        final SharedPreferences prefs = await SharedPreferences.getInstance();
+                        await prefs.setString("password", passwordController.text);
                         Navigator.pushNamed(context, '/register/username');
                       },
                       style: OutlinedButton.styleFrom(

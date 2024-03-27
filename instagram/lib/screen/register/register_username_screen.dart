@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../util/constants.dart';
 import '../../widget/login_textfield.dart';
@@ -48,7 +49,9 @@ class RegisterUsernameScreen extends StatelessWidget {
                 children: [
                   Expanded(
                     child: OutlinedButton(
-                      onPressed: () {
+                      onPressed: () async {
+                        final SharedPreferences prefs = await SharedPreferences.getInstance();
+                        await prefs.setString("userName", usernameController.text);
                         Navigator.pushNamed(context, '/register/complete');
                       },
                       style: OutlinedButton.styleFrom(

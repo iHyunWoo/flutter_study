@@ -1,9 +1,11 @@
 import 'dart:io';
 
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:instagram/screen/profile/profile_tab_bar.dart';
 import 'package:instagram/util/constants.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileMainScreen extends StatefulWidget {
   const ProfileMainScreen({super.key});
@@ -13,8 +15,26 @@ class ProfileMainScreen extends StatefulWidget {
 }
 
 class _ProfileMainScreenState extends State<ProfileMainScreen> {
+  String? userName;
+  String? name;
+  String? description;
+  String? link;
+
+  void getUserDataViaLocalDB() {
+    Future.delayed(Duration.zero, () async {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      setState(() {
+        userName = prefs.getString('userName');
+        name = prefs.getString('name');
+        description = prefs.getString('description');
+        link = prefs.getString('link');
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    getUserDataViaLocalDB();
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -124,14 +144,14 @@ class _ProfileMainScreenState extends State<ProfileMainScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "가천대학교 UMC iOS",
+              name ?? '',
               style: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w700,
               ),
             ),
             Text(
-              "umc ios 트랙 짱",
+              description ?? '',
               style: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w500,
@@ -249,7 +269,7 @@ class _ProfileMainScreenState extends State<ProfileMainScreen> {
       title: Row(
         children: [
           Text(
-            "umc_ios",
+            userName ?? "",
             style: TextStyle(
               fontWeight: FontWeight.w800,
               fontSize: 22,
