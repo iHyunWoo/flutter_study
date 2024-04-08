@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
 
+import '../model/StroyModel.dart';
 import '../util/constants.dart';
 
-class HomeStoryItem extends StatelessWidget {
-  const HomeStoryItem({super.key});
+class HomeStoryItem extends StatefulWidget {
+  final Story story;
 
+  const HomeStoryItem({super.key, required this.story});
+
+  @override
+  State<HomeStoryItem> createState() => _HomeStoryItemState();
+}
+
+class _HomeStoryItemState extends State<HomeStoryItem> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -32,19 +40,23 @@ class HomeStoryItem extends StatelessWidget {
               ),
               ClipOval(
                 child: Image.asset(
-                  '${Constants.imageBasePath}/shiba.jpg',
+                  '${Constants.imageBasePath}/person.jpg',
                   fit: BoxFit.cover,
                   width: 75,
                   height: 75,
                 ),
+                // child: Image.network(
+                //   widget.story.imageUrl,
+                //   fit: BoxFit.cover,
+                //   width: 75,
+                //   height: 75,
+                // ),
               ),
             ],
           ),
           Text(
-            "i_am_shiba",
-            style: TextStyle(
-                fontSize: 12
-            ),
+            widget.story.userName,
+            style: TextStyle(fontSize: 12),
           )
         ],
       ),

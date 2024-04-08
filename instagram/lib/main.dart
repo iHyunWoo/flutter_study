@@ -27,7 +27,8 @@ Future<void> main() async{
           buttonColor: Colors.black,
         ),
       ),
-      initialRoute: '/login',
+      // initialRoute: '/login',
+      initialRoute: '/main',
       routes: {
         '/login': (context) => LoginScreen(),
         '/register': (context) => RegisterEmailScreen(),
