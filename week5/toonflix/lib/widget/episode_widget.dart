@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:toonflix/model/webtoon_episode_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../model/webtoon_dto.dart';
+
 class Episode extends StatelessWidget {
   const Episode({
     super.key,
@@ -9,7 +11,7 @@ class Episode extends StatelessWidget {
     required this.webtoonId
   });
 
-  final WebtoonEpisodeModel episode;
+  final WebtoonEpisode episode;
   final String webtoonId;
 
   onButtonTap() async {

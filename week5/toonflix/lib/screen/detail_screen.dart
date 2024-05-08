@@ -1,13 +1,17 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:toonflix/model/webtoon_detail_model.dart';
 import 'package:toonflix/model/webtoon_episode_model.dart';
 import 'package:toonflix/model/webtoon_model.dart';
 import 'package:toonflix/service/api_service.dart';
+import 'package:toonflix/service/retrofit_api_service.dart';
 import 'package:toonflix/widget/episode_widget.dart';
 
+import '../model/webtoon_dto.dart';
+
 class DetailScreen extends StatefulWidget {
-  final WebtoonModel webtoon;
+  final Webtoon webtoon;
 
   const DetailScreen({
     super.key,
@@ -19,8 +23,8 @@ class DetailScreen extends StatefulWidget {
 }
 
 class _DetailScreenState extends State<DetailScreen> {
-  late Future<WebtoonDetailModel> webtoon;
-  late Future<List<WebtoonEpisodeModel>> episodes;
+  late Future<WebtoonDetail> webtoon;
+  late Future<List<WebtoonEpisode>> episodes;
   late SharedPreferences prefs;
   bool isLiked = false;
 
@@ -57,8 +61,12 @@ class _DetailScreenState extends State<DetailScreen> {
   @override
   void initState() {
     super.initState();
-    webtoon = ApiService.getToonById(widget.webtoon.id);
-    episodes = ApiService.getLatesetEpisodesById(widget.webtoon.id);
+    // webtoon = ApiService.getToonById(widget.webtoon.id);
+    // episodes = ApiService.getLatesetEpisodesById(widget.webtoon.id);
+    final dio = Dio();
+    final apiService = RetrofitApiService(dio);
+    webtoon = apiService.getToonById(widget.webtoon.id);
+    episodes = apiService.getLatestEpisodesById(widget.webtoon.id);
     initPrefs();
   }
 

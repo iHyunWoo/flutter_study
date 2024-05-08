@@ -38,14 +38,13 @@ class _HomeMainScreenState extends State<HomeMainScreen> {
           .toList();
 
       for (var value in mappedStory) {
-        StoryModel story = value as StoryModel;
+        StoryModel story = value;
         String userId = story.userId;
         String imageUrl = story.imageUrl;
         String userName = await _getUserName(userId);
 
         newStroies.add(Story(userName: userName, imageUrl: imageUrl));
       }
-      ;
 
       if (!newStroies.isEmpty) {
         setState(() {

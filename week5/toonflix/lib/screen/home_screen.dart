@@ -1,13 +1,17 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:toonflix/service/api_service.dart';
+import 'package:toonflix/service/retrofit_api_service.dart';
 import 'package:toonflix/widget/webtoon_widget.dart';
 
+import '../model/webtoon_dto.dart';
 import '../model/webtoon_model.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
 
-  final Future<List<WebtoonModel>> webtoons = ApiService.getTodaysToons();
+  // final Future<List<WebtoonModel>> webtoons = ApiService.getTodaysToons();
+  final Future<List<Webtoon>> webtoons = RetrofitApiService(Dio()).getTodaysToons();
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +52,7 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  ListView makeList(AsyncSnapshot<List<WebtoonModel>> snapshot) {
+  ListView makeList(AsyncSnapshot<List<Webtoon>> snapshot) {
     return ListView.separated(
       scrollDirection: Axis.horizontal,
       itemCount: snapshot.data!.length,
@@ -58,7 +62,7 @@ class HomeScreen extends StatelessWidget {
       ),
       itemBuilder: (context, index) {
         var webtoon = snapshot.data![index];
-        return Webtoon(
+        return WebtoonWidget(
           webtoon: webtoon,
         );
       },

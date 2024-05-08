@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:toonflix/model/webtoon_model.dart';
 import 'package:toonflix/screen/detail_screen.dart';
 
-class Webtoon extends StatelessWidget {
-  final WebtoonModel webtoon;
+import '../model/webtoon_dto.dart';
 
-  const Webtoon({super.key, required this.webtoon});
+class WebtoonWidget extends StatelessWidget {
+  final Webtoon webtoon;
+
+  const WebtoonWidget({super.key, required this.webtoon});
 
   @override
   Widget build(BuildContext context) {
